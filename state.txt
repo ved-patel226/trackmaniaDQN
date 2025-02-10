@@ -1,0 +1,490 @@
+[SimStateData object at 0x183a3c07af0]
+version (int): 1
+context_mode (int): 1
+flags (int): 159
+timers (ndarray): 
+        [91850 91840 0 91850 91840 0 91850 91840 0 92000 91900 0 91850 91840 0
+         91850]   (37 more items...)
+dyna (HmsDynaStruct):
+        previous_state (HmsDynaStateStruct):
+                quat (ndarray): 
+                        [0.9568625688552856 -0.0008039145614020526 0.2905394732952118
+                         0.00025146803818643093]
+                rotation (ndarray): 
+                        [[0.8311735391616821 -0.0009483785252086818 0.5560122728347778]
+                         [1.4102901332080364e-05 0.9999985694885254 0.0016845943173393607]
+                         [-0.5560131072998047 -0.0013923487858846784 0.8311723470687866]]
+                position (ndarray): [435.09307861328125 88.01385498046875 764.94189453125]
+                linear_speed (ndarray): [0.2461998164653778 0.0006298233056440949 0.4096052050590515]
+                add_linear_speed (ndarray): [0.0 0.0 0.0]
+                angular_speed (ndarray): [-0.000883451895788312 -0.011345017701387405 0.0009093357948586345]
+                force (ndarray): [8.82724380493164 -0.0063554514199495316 13.127166748046875]
+                torque (ndarray): [-0.7152858972549438 -0.10992719233036041 0.48287415504455566]
+                inverse_inertia_tensor (ndarray):
+                        [[0.7025877237319946 0.000674391514621675 0.33274227380752563]
+                         [0.0006743916310369968 0.4800020456314087 0.001008135499432683]
+                         [0.33274227380752563 0.001008135499432683 0.9774101972579956]]
+                unknown (float): 0.0
+                not_tweaked_linear_speed (ndarray): [0.0 0.0 0.0]
+                owner (int): 545964768
+        current_state (HmsDynaStateStruct):
+                quat (ndarray):
+                        [0.9568791389465332 -0.0008094766526482999 0.2904852330684662
+                         0.0002544896269682795]
+                rotation (ndarray):
+                        [[0.8312365412712097 -0.0009573136339895427 0.5559180974960327]
+                         [1.6749603673815727e-05 0.9999985694885254 0.0016969935968518257]
+                         [-0.5559189319610596 -0.0014012916944921017 0.8312353491783142]]
+                position (ndarray): [435.09295654296875 88.01385498046875 764.9420166015625]
+                linear_speed (ndarray): [0.22927285730838776 0.0008186657214537263 0.39423781633377075]
+                add_linear_speed (ndarray): [0.0 0.0 0.0]
+                angular_speed (ndarray): [-0.00043540215119719505 -0.007446360774338245 0.0006448830827139318]
+                force (ndarray): [8.34006404876709 0.018920641392469406 13.393595695495605]
+                torque (ndarray): [-0.7184982895851135 0.16201967000961304 0.48508167266845703]
+                inverse_inertia_tensor (ndarray):
+                        [[0.7025123834609985 0.0006792405038140714 0.3327111601829529]
+                         [0.0006792405038140714 0.48000210523605347 0.0010156328789889812]
+                         [0.3327111005783081 0.0010156328789889812 0.9774856567382812]]
+                unknown (float): 0.0
+                not_tweaked_linear_speed (ndarray): [0.0 0.0 0.0]
+                owner (int): 545964768
+        temp_state (HmsDynaStateStruct):
+                quat (ndarray):
+                        [0.9568625688552856 -0.0008039145614020526 0.2905394732952118
+                         0.00025146803818643093]
+                rotation (ndarray):
+                        [[0.8311735391616821 -0.0009483785252086818 0.5560122728347778]
+                         [1.4102901332080364e-05 0.9999985694885254 0.0016845943173393607]
+                         [-0.5560131072998047 -0.0013923487858846784 0.8311723470687866]]
+                position (ndarray): [435.09307861328125 88.01385498046875 764.94189453125]
+                linear_speed (ndarray): [0.2461998164653778 0.0006298233056440949 0.4096052050590515]
+                add_linear_speed (ndarray): [0.0 0.0 0.0]
+                angular_speed (ndarray): [-0.000883451895788312 -0.011345017701387405 0.0009093357948586345]
+                force (ndarray): [8.82724380493164 -0.0063554514199495316 13.127166748046875]
+                torque (ndarray): [-0.7152858972549438 -0.10992719233036041 0.48287415504455566]
+                inverse_inertia_tensor (ndarray):
+                        [[0.7025877237319946 0.000674391514621675 0.33274227380752563]
+                         [0.0006743916310369968 0.4800020456314087 0.001008135499432683]
+                         [0.33274227380752563 0.001008135499432683 0.9774101972579956]]
+                unknown (float): 0.0
+                not_tweaked_linear_speed (ndarray): [0.0 0.0 0.0]
+                owner (int): 545964768
+        rest (bytearray): [ EC C3 8A 20 A0 C4 8A 20 06 00 00 00 D8 B4 7E 20  (600 more bytes...) ]
+scene_mobil (SceneVehicleCar):
+        is_update_async (bool): True
+        input_gas (float): 1.0
+        input_brake (float): 0.0
+        input_steer (float): 0.2899932861328125
+        is_light_trials_set (bool): False
+        horn_limit (int): 3
+        quality (int): 2
+        max_linear_speed (float): 277.77777099609375
+        gearbox_state (int): 2
+        block_flags (int): 4
+        prev_sync_vehicle_state (SceneVehicleCarState):
+                speed_forward (float): 2.5298026565227237e-19
+                speed_sideward (float): 5.605193857299268e-45
+                input_steer (float): 2.8266073846374563e+23
+                input_gas (float): 0.47734367847442627
+                input_brake (float): -0.023111075162887573
+                is_turbo (bool): True
+                rpm (float): 0.4096393287181854
+                gearbox_state (int): 0
+                rest (bytearray): [ 00 E0 2B 46 01 00 00 00 02 00 00 00 00 00 00 00  (12 more bytes...) ]
+        sync_vehicle_state (SceneVehicleCarState):
+                speed_forward (float): 1.401298464324817e-45
+                speed_sideward (float): 0.0
+                input_steer (float): 0.0
+                input_gas (float): 0.4551627039909363
+                input_brake (float): -0.028584271669387817
+                is_turbo (bool): True
+                rpm (float): 0.39424359798431396
+                gearbox_state (int): 0
+                rest (bytearray): [ 00 E0 2B 46 01 00 00 00 02 00 00 00 00 00 00 00  (12 more bytes...) ]
+        async_vehicle_state (SceneVehicleCarState):
+                speed_forward (float): 1.401298464324817e-45
+                speed_sideward (float): 0.0
+                input_steer (float): 0.0
+                input_gas (float): 0.4640350937843323
+                input_brake (float): -0.02639499306678772
+                is_turbo (bool): True
+                rpm (float): 0.40040189027786255
+                gearbox_state (int): 0
+                rest (bytearray): [ 00 E0 2B 46 01 00 00 00 02 00 00 00 00 00 00 00  (12 more bytes...) ]
+        prev_async_vehicle_state (SceneVehicleCarState):
+                speed_forward (float): 1.401298464324817e-45
+                speed_sideward (float): 0.0
+                input_steer (float): 0.0
+                input_gas (float): 0.4074557423591614
+                input_brake (float): -0.026517165824770927
+                is_turbo (bool): True
+                rpm (float): 0.3534526526927948
+                gearbox_state (int): 0
+                rest (bytearray): [ 00 E0 2B 46 01 00 00 00 02 00 00 00 00 00 00 00  (12 more bytes...) ]
+        engine (Engine):
+                max_rpm (float): 11000.0
+                braking_factor (float): -0.0
+                clamped_rpm (float): 11000.0
+                actual_rpm (float): 149.9940948486328
+                slide_factor (float): 1.0
+                rear_gear (int): 0
+                gear (int): 2
+        has_any_lateral_contact (bool): False
+        last_has_any_lateral_contact_time (int): 25970
+        water_forces_applied (bool): False
+        turning_rate (float): 0.2899932861328125
+        turbo_boost_factor (float): 0.0
+        last_turbo_type_change_time (int): 1869632372
+        last_turbo_time (int): 1884498036
+        turbo_type (int): 0
+        roulette_value (float): 7.22507385319294e+28
+        is_freewheeling (bool): False
+        is_sliding (bool): False
+        wheel_contact_absorb_counter (int): 0
+        burnout_state (int): 0
+        current_local_speed (ndarray): [-0.023111075162887573 -0.0001739814761094749 0.47734367847442627]
+        total_central_force_added (ndarray): [-0.514551043510437 29.992321014404297 15.820135116577148]
+        is_rubber_ball (bool): False
+        saved_state (ndarray):
+                [[0.0 0.0 0.0]
+                 [0.0 0.0 0.0]
+                 [0.0 0.0 0.0]
+                 [0.0 0.0 0.0]]
+simulation_wheels (ndarray):
+        [[SimulationWheel object at 0x183a3c40070]
+         steerable (bool): True
+         field_8 (int): 1052401205
+         surface_handler (SurfaceHandler):
+                unknown (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]
+                         [0.8630120158195496 0.35249999165534973 1.7820889949798584]]
+                rotation (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                position (ndarray): [0.8630120158195496 0.33739274740219116 1.7820889949798584]
+         field_112 (ndarray):
+                [[1.0 0.0 0.0]
+                 [0.0 1.0 0.0]
+                 [0.0 0.0 1.0]
+                 [0.0 0.0 0.0]]
+         field_160 (int): 1065353216
+         field_164 (int): 1065353216
+         offset_from_vehicle (ndarray): [0.8630120158195496 0.35249999165534973 1.7820889949798584]
+         real_time_state (RealTimeState):
+                damper_absorb (float): 0.015107241459190845
+                field_4 (float): -0.0012935138074681163
+                field_8 (float): 0.009706621989607811
+                field_12 (ndarray):
+                        [[0.9927436113357544 0.0 -0.12025041878223419]
+                         [0.0 1.0 0.0]
+                         [0.12025041878223419 0.0 0.9927436113357544]]
+                field_48 (ndarray):
+                        [[1.0 1.4269444363890216e-05 0.0]
+                         [-1.4269422536017373e-05 0.9999986290931702 -0.001684516784735024]
+                         [-2.4037115409214493e-08 0.001684516784735024 0.9999986290931702]]
+                field_84 (ndarray): [0.863000214099884 -0.016900258138775826 1.781484842300415]
+                field_108 (float): 1.3113837242126465
+                has_ground_contact (bool): True
+                contact_material_id (int): 1065222153
+                is_sliding (bool): False
+                relative_rotz_axis (ndarray): [-0.8311735391616821 0.0009483785252086818 -0.5560122728347778]
+                nb_ground_contacts (int): 2
+                field_144 (ndarray): [-0.03228341415524483 1.0016957521438599 -0.9977796673774719]
+                rest (bytearray): [ 7A 98 A3 44 FB B3 19 BE FB B3 19 BE ]
+         field_348 (int): 0
+         contact_relative_local_distance (ndarray): [1.0393602848052979 0.31344926357269287 1.8485227823257446]
+         prev_sync_wheel_state (WheelState):
+                rest (bytearray): [ 9E BA 77 3C 0F 98 A3 44 B7 F8 19 BE 09 00 80 BF  (84 more bytes...) ]
+         sync_wheel_state (WheelState):
+                rest (bytearray): [ 5D 84 77 3C 7A 98 A3 44 FB B3 19 BE 09 00 80 BF  (84 more bytes...) ]
+         field_564 (WheelState):
+                rest (bytearray): [ 16 0C 78 3C 61 97 A3 44 CB F3 19 BE 09 00 00 00  (84 more bytes...) ]
+         async_wheel_state (WheelState):
+                rest (bytearray): [ 11 9A 77 3C 4F 98 A3 44 79 CF 19 BE 09 00 00 00  (84 more bytes...) ]
+         [SimulationWheel object at 0x183a3c402b0]
+         steerable (bool): True
+         field_8 (int): 1052401205
+         surface_handler (SurfaceHandler):
+                unknown (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]
+                         [-0.8629900217056274 0.35249999165534973 1.7820889949798584]]
+                rotation (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                position (ndarray): [-0.8629900217056274 0.33741337060928345 1.7820889949798584]
+         field_112 (ndarray):
+                [[1.0 0.0 0.0]
+                 [0.0 1.0 0.0]
+                 [0.0 0.0 1.0]
+                 [0.0 0.0 0.0]]
+         field_160 (int): 1065353216
+         field_164 (int): 1065353216
+         offset_from_vehicle (ndarray): [-0.8629900217056274 0.35249999165534973 1.7820889949798584]
+         real_time_state (RealTimeState):
+                damper_absorb (float): 0.015086611732840538
+                field_4 (float): -0.0012522562174126506
+                field_8 (float): 0.009713933803141117
+                field_12 (ndarray):
+                        [[0.9927436113357544 0.0 -0.12025041878223419]
+                         [0.0 1.0 0.0]
+                         [0.12025041878223419 0.0 0.9927436113357544]]
+                field_48 (ndarray):
+                        [[0.9997232556343079 0.02352275885641575 0.0]
+                         [-0.01666569896042347 0.7082966566085815 0.7057181596755981]
+                         [0.016600435599684715 -0.7055229544639587 0.708492636680603]]
+                field_84 (ndarray): [-0.8630167245864868 -0.016871364787220955 1.7814947366714478]
+                field_108 (float): 1.3113837242126465
+                has_ground_contact (bool): True
+                contact_material_id (int): -1087569911
+                is_sliding (bool): False
+                relative_rotz_axis (ndarray): [-0.8311735391616821 0.0009483785252086818 -0.5560122728347778]
+                nb_ground_contacts (int): 2
+                field_144 (ndarray): [0.03315557911992073 1.0016889572143555 -0.9977526068687439]
+                rest (bytearray): [ B9 A2 A3 44 FB B3 19 BE FB B3 19 BE ]
+         field_348 (int): 0
+         contact_relative_local_distance (ndarray): [0.0 0.0 0.0]
+         prev_sync_wheel_state (WheelState):
+                rest (bytearray): [ 5C 62 77 3C 4E A2 A3 44 B7 F8 19 BE 09 00 42 3F  (84 more bytes...) ]
+         sync_wheel_state (WheelState):
+                rest (bytearray): [ D6 2D 77 3C B9 A2 A3 44 FB B3 19 BE 09 00 42 3F  (84 more bytes...) ]
+         field_564 (WheelState):
+                rest (bytearray): [ C6 A9 77 3C A0 A1 A3 44 CB F3 19 BE 09 00 78 3F  (84 more bytes...) ]
+         async_wheel_state (WheelState):
+                rest (bytearray): [ D8 42 77 3C 8E A2 A3 44 79 CF 19 BE 09 00 78 3F  (84 more bytes...) ]
+         [SimulationWheel object at 0x183a3c403d0]
+         steerable (bool): False
+         field_8 (int): 1052401205
+         surface_handler (SurfaceHandler):
+                unknown (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]
+                         [-0.8849999904632568 0.3525039851665497 -1.2055020332336426]]
+                rotation (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                position (ndarray): [-0.8849999904632568 0.34219855070114136 -1.2055020332336426]
+         field_112 (ndarray):
+                [[1.0 0.0 0.0]
+                 [0.0 1.0 0.0]
+                 [0.0 0.0 1.0]
+                 [0.0 0.0 0.0]]
+         field_160 (int): 1065353216
+         field_164 (int): 1065353216
+         offset_from_vehicle (ndarray): [-0.8849999904632568 0.3525039851665497 -1.2055020332336426]
+         real_time_state (RealTimeState):
+                damper_absorb (float): 0.010305439122021198
+                field_4 (float): 0.0009770503966137767
+                field_8 (float): 0.00999669823795557
+                field_12 (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                field_48 (ndarray):
+                        [[1.0 1.3928645785199478e-05 0.0]
+                         [-1.3928624866821337e-05 0.9999986290931702 -0.0016850176034495234]
+                         [-2.3470009935522285e-08 0.0016850176034495234 0.9999986290931702]]
+                field_84 (ndarray): [-0.884995698928833 -0.011801042594015598 -1.2061102390289307]
+                field_108 (float): 1.3113837242126465
+                has_ground_contact (bool): True
+                contact_material_id (int): 1064960009
+                is_sliding (bool): False
+                relative_rotz_axis (ndarray): [-0.8311735391616821 0.0009483785252086818 -0.5560122728347778]
+                nb_ground_contacts (int): 1
+                field_144 (ndarray): [1.6445661458419636e-05 0.9999985098838806 0.0016970832366496325]
+                rest (bytearray): [ 5F D0 A3 44 00 00 00 00 00 00 00 00 ]
+         field_348 (int): 0
+         contact_relative_local_distance (ndarray): [0.0 0.0 0.0]
+         prev_sync_wheel_state (WheelState):
+                rest (bytearray): [ 2A AF 28 3C F4 CF A3 44 00 00 00 00 09 00 66 BE  (84 more bytes...) ]
+         sync_wheel_state (WheelState):
+                rest (bytearray): [ 25 D8 28 3C 5F D0 A3 44 00 00 00 00 09 00 66 BE  (84 more bytes...) ]
+         field_564 (WheelState):
+                rest (bytearray): [ DF 7B 28 3C 46 CF A3 44 00 00 00 00 09 00 B8 3D  (84 more bytes...) ]
+         async_wheel_state (WheelState):
+                rest (bytearray): [ C0 C7 28 3C 34 D0 A3 44 00 00 00 00 09 00 B8 3D  (84 more bytes...) ]
+         [SimulationWheel object at 0x183a3c404f0]
+         steerable (bool): False
+         field_8 (int): 1052401205
+         surface_handler (SurfaceHandler):
+                unknown (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]
+                         [0.8850020170211792 0.3525039851665497 -1.2055020332336426]]
+                rotation (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                position (ndarray): [0.8850020170211792 0.34217771887779236 -1.2055020332336426]
+         field_112 (ndarray):
+                [[1.0 0.0 0.0]
+                 [0.0 1.0 0.0]
+                 [0.0 0.0 1.0]
+                 [0.0 0.0 0.0]]
+         field_160 (int): 1065353216
+         field_164 (int): 1065353216
+         offset_from_vehicle (ndarray): [0.8850020170211792 0.3525039851665497 -1.2055020332336426]
+         real_time_state (RealTimeState):
+                damper_absorb (float): 0.010326269082725048
+                field_4 (float): 0.00011883675324497744
+                field_8 (float): 0.009988214820623398
+                field_12 (ndarray):
+                        [[1.0 0.0 0.0]
+                         [0.0 1.0 0.0]
+                         [0.0 0.0 1.0]]
+                field_48 (ndarray):
+                        [[1.0 1.4251622815208975e-05 -1.7763568394002505e-15]
+                         [-1.4251601896830834e-05 0.9999986290931702 -0.0016843999037519097]
+                         [-2.4005428755913272e-08 0.0016843999037519097 0.9999986290931702]]
+                field_84 (ndarray): [0.8849836587905884 -0.011830723844468594 -1.2060896158218384]
+                field_108 (float): 1.3113837242126465
+                has_ground_contact (bool): True
+                contact_material_id (int): -1111752695
+                is_sliding (bool): False
+                relative_rotz_axis (ndarray): [-0.8311735391616821 0.0009483785252086818 -0.5560122728347778]
+                nb_ground_contacts (int): 1
+                field_144 (ndarray): [1.6961221263045445e-05 0.9999985098838806 0.0016967375995591283]
+                rest (bytearray): [ 0D ED A3 44 00 00 00 00 00 00 00 00 ]
+         field_348 (int): 0
+         contact_relative_local_distance (ndarray): [1.0493857860565186 0.342375785112381 -1.2333897352218628]
+         prev_sync_wheel_state (WheelState):
+                rest (bytearray): [ 87 2A 29 3C A2 EC A3 44 00 00 00 00 09 00 B0 BD  (84 more bytes...) ]
+         sync_wheel_state (WheelState):
+                rest (bytearray): [ 83 2F 29 3C 0D ED A3 44 00 00 00 00 09 00 B0 BD  (84 more bytes...) ]
+         field_564 (WheelState):
+                rest (bytearray): [ 81 DC 28 3C F4 EB A3 44 00 00 00 00 09 00 77 3F  (84 more bytes...) ]
+         async_wheel_state (WheelState):
+                rest (bytearray): [ 84 2D 29 3C E2 EC A3 44 00 00 00 00 09 00 77 3F  (84 more bytes...) ]           ]
+plug_solid (bytearray): [ 00 00 80 3F 90 C2 F5 3E 00 00 00 00 00 00 00 00  (52 more bytes...) ]
+cmd_buffer_core (bytearray): [ 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  (248 more bytes...) ]
+player_info (PlayerInfoStruct):
+        team (int): 0
+        prev_race_time (int): -1
+        race_start_time (int): 2600
+        race_time (int): 89230
+        race_best_time (int): 458430
+        lap_start_time (int): 2600
+        lap_time (int): 89230
+        lap_best_time (int): 458430
+        min_respawns (int): 0
+        nb_completed (int): 0
+        max_completed (int): 0
+        stunts_score (int): 0
+        best_stunts_score (int): 0
+        cur_checkpoint (int): 0
+        average_rank (float): 0.0
+        current_race_rank (int): 0
+        current_round_rank (int): 0
+        current_time (int): 458430
+        race_state (int): 1
+        ready_enum (int): 0
+        round_num (int): 0
+        offset_current_cp (float): 0.0
+        cur_lap_cp_count (int): 0
+        cur_cp_count (int): 0
+        cur_lap (int): 0
+        race_finished (bool): False
+        display_speed (int): 1
+        finish_not_passed (bool): True
+        countdown_time (int): 2600
+        rest (bytearray): [ 8E 5C 01 00 00 FF 00 00 00 00 00 00 78 C8 B2 00  (16 more bytes...) ]
+internal_input_state (ndarray):
+        [[CachedInput object at 0x183a3c40a30]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c404c0]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c401c0]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c40940]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c409d0]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c40340]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c40790]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c40670]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c40280]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0
+         [CachedInput object at 0x183a3c400d0]
+         time (int): 0
+         event (Event):
+                time (int): 0
+                input_data (int): 0                 ]
+input_running_event (Event):
+        time (int): 100000
+        input_data (int): 150994945
+input_finish_event (Event):
+        time (int): 0
+        input_data (int): 0
+input_accelerate_event (Event):
+        time (int): 172480
+        input_data (int): 67108865
+input_brake_event (Event):
+        time (int): 120520
+        input_data (int): 50331648
+input_left_event (Event):
+        time (int): 124400
+        input_data (int): 0
+input_right_event (Event):
+        time (int): 124660
+        input_data (int): 16777216
+input_steer_event (Event):
+        time (int): 173030
+        input_data (int): 50312643
+input_gas_event (Event):
+        time (int): 0
+        input_data (int): 0
+num_respawns (int): 0
+cp_data (CheckpointData):
+        reserved (int): 0
+        cp_states_length (int): 3
+        cp_states (ndarray): [False False False]
+        cp_times_length (int): 3
+        cp_times (ndarray):
+                [[CheckpointTime object at 0x183a3c40940]
+                 time (int): -1
+                 stunts_score (int): 0
+                 [CheckpointTime object at 0x183a3c408e0]
+                 time (int): -1
+                 stunts_score (int): 0
+                 [CheckpointTime object at 0x183a3c40430]
+                 time (int): -1
+                 stunts_score (int): 0                   
+]
