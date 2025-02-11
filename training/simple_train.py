@@ -3,6 +3,7 @@ from make_instances import make_n_instances
 import os
 from stable_baselines3 import DQN
 from stable_baselines3.common.vec_env import SubprocVecEnv, VecNormalize, VecFrameStack
+from stable_baselines3.common.callbacks import CheckpointCallback
 
 
 def make_env(rank):
@@ -55,8 +56,8 @@ if __name__ == "__main__":
         seed=42,
     )
 
-    i = 1
-    while True:
-        model.learn(total_timesteps=200_000, reset_num_timesteps=False)
-        model.save(f"models/v11/dqn_trackmania_{i * 200_000}")
-        i += 1
+    checkpoint_callback = CheckpointCallback(
+        save_freq=50_000, save_path="./models/v11/", name_prefix="dqn_trackmania"
+    )
+
+    model.learn(total_timesteps=1_000_000, callback=checkpoint_callback)

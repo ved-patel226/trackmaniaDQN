@@ -4,7 +4,8 @@ import gymnasium as gym
 from gymnasium.spaces.utils import flatten_space, flatten
 from gymnasium import spaces
 import numpy as np
-import math
+import os
+import cv2
 
 # from tminterface2 import TMInterface
 import mss
@@ -114,6 +115,9 @@ class TrackmaniaEnv:
         self.iface = TMInterface(f"TMInterface{server_number}")
         print("Created client and interface")
 
+        os.makedirs("screenshots", exist_ok=True)
+        os.makedirs(f"screenshots/{server_number}", exist_ok=True)
+
         self.client.register(self.iface)
         print("Registered client")
 
@@ -128,22 +132,42 @@ class TrackmaniaEnv:
         self.window_title = window_title
         self.time_stuck = 0
 
+        self.photo_counter = 0
+
         print("Initialized environment")
 
     def get_rewards(self, obs_dict: dict, completed: bool, brake: bool) -> float:
+        # Track previous speed; if not set, initialize it to current speed.
+        if not hasattr(self, "last_speed"):
+            self.last_speed = obs_dict["speed"]
+
+        current_speed = obs_dict["speed"]
+
+        # Check for sudden speed drop (20 or more)
+        sudden_drop_penalty = 0
+        if self.last_speed - current_speed >= 20:
+            sudden_drop_penalty = -50  # Apply an additional penalty
+
+        # Update last_speed for the next call
+        self.last_speed = current_speed
+
         if completed:
-            return 1000
-        if obs_dict["position"][1] < 140:
-            return -1000
-
-        speed = obs_dict["speed"]
-        if speed < 20:
-
-            return int(np.interp(speed, [0, 20], [-1000, -50]))
-        elif brake:
-            return 0
+            reward = 100  # reduced from 1000
+        elif obs_dict["position"][1] < 140:
+            reward = -100  # reduced from -1000
         else:
-            return (speed - 50) ** 1.1
+            if current_speed < 20:
+                # Scale reward from low speed: now within [-100, -5]
+                reward = np.interp(current_speed, [0, 20], [-100, -5])
+            elif brake:
+                reward = 0
+            else:
+                # Scale down the reward for high speed
+                reward = (current_speed - 50) ** 1.1 / 10.0
+
+        reward += sudden_drop_penalty
+        # Clip the reward to keep it within a sensible range.
+        return np.clip(reward, -150, 150)
 
     def step(self, action: tuple[bool, bool]) -> tuple[dict, float, bool, bool, dict]:
         self.client.move(self.iface, *action)
@@ -168,7 +192,7 @@ class TrackmaniaEnv:
 
     def reset(self) -> dict:
         self.client.restart_run(self.iface)
-
+        time.sleep(1)
         return self.client.observe(self.iface, self.window_title, self.sct)[0]
 
     @property
@@ -214,7 +238,7 @@ class GymTrackmaniaEnv(gym.Env):
             1: (False, True),
             2: (True, False),
             3: (True, True),
-            4: (False, None),
+            4: (False, 0),
         }
 
         # Convert continuous actions to discrete
