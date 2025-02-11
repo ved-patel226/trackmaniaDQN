@@ -2,9 +2,7 @@ from env import GymTrackmaniaEnv
 from make_instances import make_n_instances
 import os
 from stable_baselines3 import DQN
-from stable_baselines3.common.vec_env import SubprocVecEnv
-from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.vec_env import VecNormalize
+from stable_baselines3.common.vec_env import SubprocVecEnv, VecNormalize, VecFrameStack
 
 
 def make_env(rank):
@@ -20,8 +18,8 @@ if __name__ == "__main__":
     num_of_instances = 4
 
     if multi:
-        make_n_instances(num_of_instances)
-        input("Press Enter to continue...")
+        # make_n_instances(num_of_instances)
+        # input("Press Enter to continue...")
 
         env_fns = [make_env(i) for i in range(1, num_of_instances + 1)]
         env = SubprocVecEnv(env_fns)
@@ -30,6 +28,7 @@ if __name__ == "__main__":
         input("Press Enter to continue...")
         env = GymTrackmaniaEnv(0, "AI: 1")
 
+    env = VecFrameStack(env, n_stack=4)
     env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
     os.system("cls")
@@ -45,14 +44,14 @@ if __name__ == "__main__":
         "MlpPolicy",
         env,
         batch_size=128,
-        buffer_size=100_000,
-        learning_rate=linear_schedule(3e-4, 1e-4),
+        buffer_size=40_000,
+        learning_rate=linear_schedule(1e-4, 5e-5),
         exploration_final_eps=0.02,
-        exploration_fraction=0.1,
+        exploration_fraction=0.2,
         train_freq=(4, "step"),
-        target_update_interval=1000,
+        target_update_interval=500,
         verbose=2,
-        tensorboard_log="../logs/",
+        tensorboard_log="./logs",
         seed=42,
     )
 

@@ -126,6 +126,7 @@ class TrackmaniaEnv:
         self.sct = mss.mss()
 
         self.window_title = window_title
+        self.time_stuck = 0
 
         print("Initialized environment")
 
@@ -134,14 +135,15 @@ class TrackmaniaEnv:
             return 1000
         if obs_dict["position"][1] < 140:
             return -1000
-        if brake:
-            return 0
 
         speed = obs_dict["speed"]
         if speed < 20:
+
             return int(np.interp(speed, [0, 20], [-1000, -50]))
+        elif brake:
+            return 0
         else:
-            return speed - 50
+            return (speed - 50) ** 1.1
 
     def step(self, action: tuple[bool, bool]) -> tuple[dict, float, bool, bool, dict]:
         self.client.move(self.iface, *action)
@@ -151,7 +153,17 @@ class TrackmaniaEnv:
         truncated = (
             self.client.get_time(self.iface) > 25000 * 2 or obs_dict["position"][1] < 50
         )
+
+        if obs_dict["speed"] < 5:
+            self.time_stuck += 1
+        else:
+            self.time_stuck = 0
+
+        if self.time_stuck >= 10:
+            truncated = True
+
         reward = self.get_rewards(obs_dict, completed, action[0])
+
         return obs_dict, reward, completed, truncated, {}
 
     def reset(self) -> dict:
