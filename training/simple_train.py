@@ -56,8 +56,12 @@ if __name__ == "__main__":
         seed=42,
     )
 
+    adjusted_save_freq = max(50_000 // num_of_instances, 1)
+
     checkpoint_callback = CheckpointCallback(
-        save_freq=50_000, save_path="./models/v11/", name_prefix="dqn_trackmania"
+        save_freq=adjusted_save_freq,
+        save_path="./models/v11/",
+        name_prefix="dqn_trackmania",
     )
 
     model.learn(total_timesteps=1_000_000, callback=checkpoint_callback)

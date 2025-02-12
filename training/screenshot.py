@@ -13,6 +13,7 @@ def capture_window(window_title, sct=None):
     try:
         # Cache window reference
         window = gw.getWindowsWithTitle(window_title)[0]
+        time.sleep(0.01)
 
         # Pre-define monitor dict
         monitor = {

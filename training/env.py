@@ -6,6 +6,7 @@ from gymnasium import spaces
 import numpy as np
 import os
 import cv2
+from track_viewer import find_nearest_checkpoint
 
 # from tminterface2 import TMInterface
 import mss
@@ -35,6 +36,7 @@ class MainClient(Client):
         self, iface: TMInterface, current: int, target: int
     ) -> None:
         if current == target:
+            print("Completed run")
             self.completed = True
             iface.prevent_simulation_finish()
 
@@ -68,6 +70,7 @@ class MainClient(Client):
 
     def observe(self, iface: TMInterface, window_title: str, sct: mss.mss):
         self.completed = False
+
         iface._process_server_message()
 
         state = iface.get_simulation_state()
@@ -132,7 +135,8 @@ class TrackmaniaEnv:
         self.window_title = window_title
         self.time_stuck = 0
 
-        self.photo_counter = 0
+        self.server_number = server_number
+        self.zone_centers = np.load("map.npy")
 
         print("Initialized environment")
 
@@ -151,19 +155,22 @@ class TrackmaniaEnv:
         # Update last_speed for the next call
         self.last_speed = current_speed
 
+        print(
+            find_nearest_checkpoint(np.array(obs_dict["position"]), self.zone_centers)
+        )
+
         if completed:
             reward = 100  # reduced from 1000
         elif obs_dict["position"][1] < 140:
             reward = -100  # reduced from -1000
+        elif current_speed < 20:
+            # Scale reward from low speed: now within [-100, -5]
+            reward = np.interp(current_speed, [0, 20], [-100, -5])
+        elif brake:
+            reward = -current_speed
         else:
-            if current_speed < 20:
-                # Scale reward from low speed: now within [-100, -5]
-                reward = np.interp(current_speed, [0, 20], [-100, -5])
-            elif brake:
-                reward = 0
-            else:
-                # Scale down the reward for high speed
-                reward = (current_speed - 50) ** 1.1 / 10.0
+            # Scale down the reward for high speed
+            reward = (current_speed - 50) ** 1.1 / 10.0
 
         reward += sudden_drop_penalty
         # Clip the reward to keep it within a sensible range.
@@ -171,9 +178,11 @@ class TrackmaniaEnv:
 
     def step(self, action: tuple[bool, bool]) -> tuple[dict, float, bool, bool, dict]:
         self.client.move(self.iface, *action)
+
         obs_dict, completed = self.client.observe(
             self.iface, self.window_title, self.sct
         )
+
         truncated = (
             self.client.get_time(self.iface) > 25000 * 2 or obs_dict["position"][1] < 50
         )
@@ -270,13 +279,12 @@ def main() -> None:
     time.sleep(0.025)
 
     while True:
-        print(
-            env.env.get_rewards(
-                env.env.client.observe(env.env.iface, "AI: 1", env.env.sct)[0],
-                False,
-                False,
-            )
+        env.env.get_rewards(
+            env.env.client.observe(env.env.iface, "AI: 1", env.env.sct)[0],
+            False,
+            False,
         )
+
         time.sleep(0.025)
 
 

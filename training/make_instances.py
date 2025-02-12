@@ -37,6 +37,7 @@ def make_n_instances(n):
 
         time.sleep(1)
         pyautogui.hotkey("ctrl", "win", "t")
+
     os.chdir(prev_path)
 
 
