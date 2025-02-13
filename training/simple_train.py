@@ -19,8 +19,8 @@ if __name__ == "__main__":
     num_of_instances = 4
 
     if multi:
-        # make_n_instances(num_of_instances)
-        # input("Press Enter to continue...")
+        make_n_instances(num_of_instances)
+        input("Press Enter to continue...")
 
         env_fns = [make_env(i) for i in range(1, num_of_instances + 1)]
         env = SubprocVecEnv(env_fns)
@@ -40,28 +40,32 @@ if __name__ == "__main__":
 
         return func
 
-    # model = PPO("MlpPolicy", env, verbose=2)
+    policy_kwargs = dict(net_arch=[512, 512], dueling=True)
+
     model = DQN(
-        "MlpPolicy",
+        "CnnPolicy",
         env,
-        batch_size=128,
-        buffer_size=40_000,
-        learning_rate=linear_schedule(1e-4, 5e-5),
+        batch_size=64,
+        buffer_size=100_000,
+        learning_rate=linear_schedule(1e-5, 5e-6),
         exploration_final_eps=0.02,
-        exploration_fraction=0.2,
+        exploration_fraction=0.1,
         train_freq=(4, "step"),
-        target_update_interval=500,
+        target_update_interval=10_000,
         verbose=2,
         tensorboard_log="./logs",
         seed=42,
+        tau=0.001,
+        policy_kwargs=policy_kwargs,
+        optimize_memory_usage=True,
     )
 
     adjusted_save_freq = max(50_000 // num_of_instances, 1)
 
     checkpoint_callback = CheckpointCallback(
         save_freq=adjusted_save_freq,
-        save_path="./models/v11/",
+        save_path="./models/v12/",
         name_prefix="dqn_trackmania",
     )
 
-    model.learn(total_timesteps=1_000_000, callback=checkpoint_callback)
+    model.learn(total_timesteps=300_000, callback=checkpoint_callback)

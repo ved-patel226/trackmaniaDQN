@@ -90,22 +90,39 @@ def extract_cp_distance_interval(
 
 
 def find_nearest_checkpoint(position, zone_centers):
-    distances = np.linalg.norm(zone_centers - position, axis=1)
-    nearest_idx = np.argmin(distances)
-    return nearest_idx, zone_centers[nearest_idx]
+    min_distance = float("inf")
+    min_idx = -1
+
+    for i, zone_center in enumerate(zone_centers):
+        if distance_between(position, zone_center) < min_distance:
+            min_distance = distance_between(position, zone_center)
+            min_idx = i
+
+    return min_distance, min_idx
+
+
+def distance_between(p1, p2):
+    """
+    Calculate the Euclidean distance between two 3D points.
+    Both points should be array-like with three elements.
+    """
+    return np.linalg.norm(np.array(p1) - np.array(p2))
 
 
 def main() -> None:
     path = Path(
-        r"C:\Users\talk2_6h7jpbd\Documents\TrackMania\Tracks\Replays\MediaTrackerGhosts\MediaTrackerAI #3.Ghost.gbx"
+        r"C:\Users\talk2_6h7jpbd\Documents\TrackMania\Tracks\Replays\AI #5_ved-patel226(00'26''50).Replay.Gbx"
     )
 
     base_dir = Path(r"C:\Users\talk2_6h7jpbd\Documents\TrackMania")
 
     raw_positions_list = gbx_to_raw_pos_list(path)
-    zone_centers = extract_cp_distance_interval(raw_positions_list, 0.5)
+    raw_positions_list = np.array(raw_positions_list)
+    np.save("map2.npy", raw_positions_list)
 
-    print(find_nearest_checkpoint(np.array([0, 0, 0]), zone_centers))
+    # zone_centers = extract_cp_distance_interval(raw_positions_list, 0.1)
+
+    # print(find_nearest_checkpoint(np.array([0, 0, 0]), zone_centers))
 
 
 if __name__ == "__main__":

@@ -1,22 +1,9 @@
-from PIL import Image
-import os
-
-dir_path = r"screenshots\USER"
-image_paths = [
-    os.path.join(dir_path, file)
-    for file in os.listdir(dir_path)
-    if file.endswith(("png", "jpg", "jpeg"))
-][:120]
+import numpy as np
+from matplotlib import pyplot as plt
 
 
-# Open images and store them in a list
-images = [Image.open(image_path) for image_path in image_paths]
-
-# Save as a GIF
-images[0].save(
-    "output.gif",
-    save_all=True,
-    append_images=images[1:],
-    duration=100,  # Duration in milliseconds
-    loop=0,  # Loop forever
-)
+data = np.load("map2.npy")
+fig = plt.figure()
+ax = fig.add_subplot(projection="3d")
+ax.scatter(data[:, 0], data[:, 1], data[:, 2])
+plt.show()

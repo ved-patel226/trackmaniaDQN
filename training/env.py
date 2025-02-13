@@ -11,7 +11,7 @@ from track_viewer import find_nearest_checkpoint
 # from tminterface2 import TMInterface
 import mss
 import random
-
+import pyautogui
 
 try:
     from .screenshot import capture_window
@@ -21,6 +21,7 @@ except ImportError:
     from make_instances import make_n_instances
 import time
 from tqdm import tqdm
+import msvcrt
 
 
 class MainClient(Client):
@@ -36,11 +37,8 @@ class MainClient(Client):
         self, iface: TMInterface, current: int, target: int
     ) -> None:
         if current == target:
-            print("Completed run")
             self.completed = True
             iface.prevent_simulation_finish()
-
-            time.sleep(2.5)
             self.restart_run(iface)
 
     def map_steering(
@@ -70,10 +68,12 @@ class MainClient(Client):
 
     def observe(self, iface: TMInterface, window_title: str, sct: mss.mss):
         self.completed = False
-
         iface._process_server_message()
 
         state = iface.get_simulation_state()
+
+        if state.position[2] > 590:
+            self.completed = True
 
         return (
             {
@@ -118,9 +118,6 @@ class TrackmaniaEnv:
         self.iface = TMInterface(f"TMInterface{server_number}")
         print("Created client and interface")
 
-        os.makedirs("screenshots", exist_ok=True)
-        os.makedirs(f"screenshots/{server_number}", exist_ok=True)
-
         self.client.register(self.iface)
         print("Registered client")
 
@@ -136,14 +133,15 @@ class TrackmaniaEnv:
         self.time_stuck = 0
 
         self.server_number = server_number
-        self.zone_centers = np.load("map.npy")
-
-        print("Initialized environment")
+        self.zone_centers = np.load("map2.npy")
 
     def get_rewards(self, obs_dict: dict, completed: bool, brake: bool) -> float:
         # Track previous speed; if not set, initialize it to current speed.
         if not hasattr(self, "last_speed"):
             self.last_speed = obs_dict["speed"]
+
+        if not hasattr(self, "last_checkpoint"):
+            self.last_checkpoint = 0
 
         current_speed = obs_dict["speed"]
 
@@ -155,14 +153,14 @@ class TrackmaniaEnv:
         # Update last_speed for the next call
         self.last_speed = current_speed
 
-        print(
-            find_nearest_checkpoint(np.array(obs_dict["position"]), self.zone_centers)
+        (distance, checkpoint_idx) = find_nearest_checkpoint(
+            obs_dict["position"], self.zone_centers
         )
 
         if completed:
-            reward = 100  # reduced from 1000
+            return 100  # reduced from 1000
         elif obs_dict["position"][1] < 140:
-            reward = -100  # reduced from -1000
+            return -100  # reduced from -1000
         elif current_speed < 20:
             # Scale reward from low speed: now within [-100, -5]
             reward = np.interp(current_speed, [0, 20], [-100, -5])
@@ -173,18 +171,27 @@ class TrackmaniaEnv:
             reward = (current_speed - 50) ** 1.1 / 10.0
 
         reward += sudden_drop_penalty
-        # Clip the reward to keep it within a sensible range.
-        return np.clip(reward, -150, 150)
 
-    def step(self, action: tuple[bool, bool]) -> tuple[dict, float, bool, bool, dict]:
-        self.client.move(self.iface, *action)
+        if checkpoint_idx >= self.last_checkpoint:
+            self.last_checkpoint = checkpoint_idx
+            bonus = np.interp(distance, [0, 30], [100, 0])
+            reward += bonus
+
+        return reward
+
+    def step(
+        self, action: tuple[bool, bool] | None
+    ) -> tuple[dict, float, bool, bool, dict]:
+        if action:
+            self.client.move(self.iface, *action)
 
         obs_dict, completed = self.client.observe(
             self.iface, self.window_title, self.sct
         )
 
         truncated = (
-            self.client.get_time(self.iface) > 25000 * 2 or obs_dict["position"][1] < 50
+            self.client.get_time(self.iface) > 25000 * 2
+            or obs_dict["position"][1] < 100
         )
 
         if obs_dict["speed"] < 5:
@@ -195,11 +202,41 @@ class TrackmaniaEnv:
         if self.time_stuck >= 10:
             truncated = True
 
-        reward = self.get_rewards(obs_dict, completed, action[0])
+        reward = self.get_rewards(obs_dict, completed, False)
 
         return obs_dict, reward, completed, truncated, {}
 
     def reset(self) -> dict:
+        # time.sleep(5)
+        # print("Resetting environment")
+
+        # if self.window_title:
+        #     windows = pyautogui.getWindowsWithTitle(self.window_title)
+        #     if windows:
+        #         try:
+        #             window = windows[0]
+        #             try:
+        #                 window.activate()
+        #                 window.restore()
+        #             except Exception as e:
+        #                 if "Error code from Windows: 0" not in str(e):
+        #                     raise e
+        #             x, y = window.center
+        #             pyautogui.click(x, y)
+
+        #             time.sleep(0.01)
+        #             y += 220
+        #             for i in range(10):
+        #                 pyautogui.click(x, y - i)
+        #                 pyautogui.click(x, y + i)
+
+        #         except Exception as e:
+        #             print(f"Error clicking window: {e}")
+        #     else:
+        #         print(f"No window found with title: {self.window_title}")
+
+        self.last_checkpoint = 0
+        self.last_speed = 0
         self.client.restart_run(self.iface)
         time.sleep(1)
         return self.client.observe(self.iface, self.window_title, self.sct)[0]
@@ -250,11 +287,11 @@ class GymTrackmaniaEnv(gym.Env):
             4: (False, 0),
         }
 
-        # Convert continuous actions to discrete
         brake, steer = conversion_chart[action]
 
         # Take action in the environment
         obs_dict, reward, done, truncated, info = self.env.step((brake, steer))
+
         # Flatten the observation dict to a numpy array
         flattened_obs = flatten(self.dict_space, obs_dict)
         return flattened_obs, reward, done, truncated, info
@@ -274,18 +311,12 @@ def main() -> None:
     # input("Press Enter to continue...")
 
     env = GymTrackmaniaEnv(0, "AI: 1")
-    env.reset()
-
-    time.sleep(0.025)
+    # env.reset()
 
     while True:
-        env.env.get_rewards(
-            env.env.client.observe(env.env.iface, "AI: 1", env.env.sct)[0],
-            False,
-            False,
-        )
 
-        time.sleep(0.025)
+        print(env.env.step(None)[1])
+        time.sleep(0.1)
 
 
 if __name__ == "__main__":

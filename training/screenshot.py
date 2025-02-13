@@ -23,12 +23,8 @@ def capture_window(window_title, sct=None):
             "height": window.height,
         }
 
-        # Direct numpy array conversion
-        screenshot = np.array(sct.grab(monitor))
-
-        # Combine operations to reduce memory allocations
         screenshot = cv2.resize(
-            cv2.cvtColor(screenshot, cv2.COLOR_BGRA2GRAY), (128, 128)
+            cv2.cvtColor(np.array(sct.grab(monitor)), cv2.COLOR_BGRA2GRAY), (128, 128)
         )
 
         return np.expand_dims(screenshot, axis=-1)
