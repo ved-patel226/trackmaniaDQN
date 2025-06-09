@@ -1,1 +1,1 @@
-(screenshot.png)
+![Output GIF](output.gif)
