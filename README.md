@@ -1,1 +1,1 @@
-(output.gif)
+(screenshot.png)
